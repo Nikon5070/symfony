@@ -11,10 +11,10 @@ if [[ -n "$containers" ]]
     echo "Not containers"
 fi
 
-#if [[ -n "$images" ]]
-#  then
-#    docker rmi $images
-#  else
-#    echo "Not images"
-#fi
+if [[ -n "$images" ]]
+  then
+    docker rmi $images
+  else
+    echo "Not images"
+fi
 

@@ -24,6 +24,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #COPY composer.json .
 COPY . .
 
+#COPY wait-for
+COPY wait-for-it.sh /usr/bin/wait-for-it
+RUN chmod +x /usr/bin/wait-for-it
+
 ENV APP_ENV=dev
 ENV APP_SECRET=0842e8ce715642505ca2400e4308f5e4
 
@@ -38,7 +42,7 @@ USER www
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD wait-for-it db:3306 -- php bin/console doctrine:migrations:migrate; php-fpm
 
 
 
