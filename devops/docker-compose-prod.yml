@@ -1,6 +1,8 @@
 version: '3.7'
 
 networks:
+  traefik-net: #name network for traefik
+    external: true
   php-prod-db: #name network for prod database
     external: true
   internal:

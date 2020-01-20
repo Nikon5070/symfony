@@ -1,6 +1,8 @@
 version: '3.7'
 
 networks:
+  traefik-net: #name network for traefik
+    external: true
   php-test-db: #name network for test database
     external: true
   internal:
@@ -13,6 +15,10 @@ services:
     environment:
       APP_ENV: dev
       DATABASE_URL: "mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:3306/${DATABASE_NAME}"
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
     networks:
       - internal
       - php-test-db
@@ -28,10 +34,18 @@ services:
       - ./logs:/var/log
     depends_on:
       - php-fpm
-    ports:
-      - "9990:80"
     networks:
       - internal
+      - traefik-net
+    deploy:
+      labels:
+        traefik.backend: "master.symfony"
+        traefik.frontend.rule: "Host:mastersymfony.express.nikon.host"
+        traefik.docker.network: "traefik-net"
+        traefik.port: "80"
+      replicas: 4
+      update_config:
+        parallelism: 2
 
 
 
