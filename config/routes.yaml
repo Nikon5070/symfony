@@ -2,7 +2,7 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 app_lucky_number:
-  path: /lucky/number
+  path: /
   controller: App\Controller\LuckyController::number
 
 app_product_create:
