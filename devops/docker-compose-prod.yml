@@ -14,7 +14,7 @@ services:
       DATABASE_URL: "mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:3306/${DATABASE_NAME}"
     networks:
       - internal
-      - php-test-db
+      - php-prod-db
 
   nginx:
     image: nginx:alpine

@@ -1,0 +1,13 @@
+2020/01/18 11:49:28 [emerg] 1#1: "daemon" directive is duplicate in /etc/nginx/nginx.conf:3
+2020/01/19 05:18:21 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 05:20:11 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 05:36:42 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 05:37:11 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 05:37:45 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 05:59:47 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 06:05:11 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 10:17:08 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 10:19:06 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 10:19:25 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 10:19:53 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
+2020/01/19 10:20:22 [emerg] 1#1: host not found in upstream "php-fpm:9000" in /etc/nginx/conf.d/default.conf:2
