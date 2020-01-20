@@ -1,0 +1,54 @@
+name: Prod
+
+on:
+  push:
+    branches:
+      - master
+env:
+  NAME_PROJECT: ${{ secrets.NAME_PROJECT }}
+  DOCKER_REGISTY_LOGIN: ${{ secrets.DOCKER_REGISTY_LOGIN }}
+  DOCKER_REGISTY_PASS: ${{ secrets.DOCKER_REGISTY_PASS }}
+  AUTH_BASIC: ${{ secrets.AUTH_BASIC }}
+  CONTAINER_TEST: "nikon5070/symfony"
+  CONTAINER_PROD: "nikon5070/symfony:latest"
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v1
+      - name: set auth basic
+        run: |
+          echo $AUTH_BASIC > ./devops/nginx/.htpasswd
+      - name: docker login
+        run: |
+          echo $DOCKER_REGISTY_PASS | docker login -u $DOCKER_REGISTY_LOGIN --password-stdin
+      - name: build docker image
+        run: |
+          docker build -t $CONTAINER_TEST:master -t $CONTAINER_PROD -f ./devops/Dockerfile .
+      - name: push docker images in registy
+        run: |
+          docker push $CONTAINER_TEST:master
+          docker push $CONTAINER_PROD
+      - name: pull docker images with registy
+        run: |
+          docker pull $CONTAINER_TEST:master
+          docker pull $CONTAINER_PROD
+
+  prod-deploy:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: docker prod stack
+        run: |
+          docker stack deploy --compose-file ./devops/docker-compose-prod.yml $NAME_PROJECT
+
+#  clear-unused-docker-containers:
+#    needs: prod-deploy
+#    runs-on: self-hosted
+#
+#    steps:
+#      - name: clear
+#        run: |
+#          bash ./devops/clean.sh

@@ -1,0 +1,17 @@
+name: remove
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - 'master'
+env:
+  NAME_PROJECT: ${{ secrets.NAME_PROJECT }}
+
+jobs:
+  remove-machine:
+    runs-on: self-hosted
+    steps:
+      - name: remove stack
+        run: |
+          docker stack rm ${NAME_PROJECT}_${GITHUB_HEAD_REF}
