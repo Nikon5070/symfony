@@ -29,12 +29,18 @@ services:
       - ./logs:/var/log
     depends_on:
       - php-fpm
-    ports:
-      - "9980:80"
     networks:
       - internal
-
-
+      - traefik-net
+    deploy:
+      labels:
+        traefik.backend: "master.symfony"
+        traefik.frontend.rule: "Host:mastersymfony.express.nikon.host"
+        traefik.docker.network: "traefik-net"
+        traefik.port: "80"
+      replicas: 4
+      update_config:
+        parallelism: 2
 
   #  db:
   #    image: mariadb:latest
