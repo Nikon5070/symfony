@@ -12,7 +12,7 @@ class LuckyController extends AbstractController
         $number = random_int(0, 100);
 
         return new Response(
-            '<html><body>Lucky number for "Matyuha" version: ' . $number . '</body></html>'
+            '<html><body>Lucky number for "MASTER" version: ' . $number . '</body></html>'
         );
     }
 }
