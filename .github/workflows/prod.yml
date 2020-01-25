@@ -12,6 +12,10 @@ env:
   CONTAINER_TEST: "nikon5070/symfony"
   CONTAINER_PROD: "nikon5070/symfony:latest"
 
+  DATABASE_USER: ${{ secrets.DATABASE_USER }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+
 jobs:
   build:
     runs-on: self-hosted

@@ -11,6 +11,9 @@ env:
   DOCKER_REGISTY_LOGIN: ${{ secrets.DOCKER_REGISTY_LOGIN }}
   DOCKER_REGISTY_PASS: ${{ secrets.DOCKER_REGISTY_PASS }}
   AUTH_BASIC: ${{ secrets.AUTH_BASIC }}
+  DATABASE_USER: ${{ secrets.DATABASE_USER }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
 
 jobs:
   build:
