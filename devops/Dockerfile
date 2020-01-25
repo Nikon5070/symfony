@@ -42,7 +42,7 @@ USER www
 
 EXPOSE 9000
 
-CMD wait-for-it db:3306 -- php bin/console doctrine:migrations:migrate && php-fpm
+CMD php-fpm
 
 
 
