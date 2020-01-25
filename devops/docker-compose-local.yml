@@ -1,0 +1,45 @@
+version: '3.7'
+
+networks:
+  php-test-db: #name network for test database
+    external: true
+  internal:
+    external: false
+
+services:
+  php-fpm:
+    image: php-docker
+    environment:
+      APP_ENV: dev
+      DATABASE_URL: "mysql://appuser:apppassword@db:3306/symfony"
+    networks:
+      - internal
+      - php-test-db
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ../:/var/www
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./logs:/var/log
+    depends_on:
+      - php-fpm
+    networks:
+      - internal
+
+
+  #  db:
+  #    image: mariadb:latest
+  #    environment:
+  #      - MYSQL_DATABASE=symfony
+  #      - MYSQL_USER=appuser
+  #      - MYSQL_PASSWORD=apppassword
+  #      - MYSQL_ROOT_PASSWORD=secret
+  #    ports:
+  #      - "3306:3306"
+  #    networks:
+  #      - internal
+
