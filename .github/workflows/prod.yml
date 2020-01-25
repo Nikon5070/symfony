@@ -39,8 +39,23 @@ jobs:
           docker pull $CONTAINER_TEST:master
           docker pull $CONTAINER_PROD
 
-  prod-deploy:
+
+  migrations:
+    runs-on: self-hosted
     needs: build
+    steps:
+      - name: migrations schemes
+        run: |
+          docker run --name ${NAME_PROJECT}_${GITHUB_HEAD_REF}_migrations \
+              --rm \
+              --network php-prod-db \
+              -e DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:3306/${DATABASE_NAME} \
+              $CONTAINER_PROD \
+              wait-for-it db:3306 -- php bin/console doctrine:migrations:migrate
+
+
+  prod-deploy:
+    needs: migrations
     runs-on: self-hosted
 
     steps:
