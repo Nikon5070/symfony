@@ -24,7 +24,7 @@ class LuckyController extends AbstractController
     public function number()
     {
         return new Response(
-            '<html><body>Lucky number for "MASTER" version: ' . $this->numberTools . '</body></html>'
+            '<html><body>Lucky number for "MASTER" version: ' . $this->numberTools->getNumber() . '</body></html>'
         );
     }
 }
