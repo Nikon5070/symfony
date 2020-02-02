@@ -1,6 +1,5 @@
 FROM php:7.2-fpm
 
-WORKDIR /var/www
 
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # В данном случае мы установим некоторые зависимости и модули PHP.
@@ -21,27 +20,29 @@ RUN apt-get update \
 # Куда же без composer'а.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-#COPY composer.json .
-COPY . .
+# Add user for symfony application
+RUN groupadd -g 1000 www \
+    && useradd -u 1000 -ms /bin/bash -g www www \
+    && chmod -R 777 /var/www/
+# Change current user to www
+USER www
 
+# workdir
+#RUN chown -R www:www /var/www/
+WORKDIR /var/www/
+#COPY composer.json .
+COPY --chown=www:www . .
 #COPY wait-for
-COPY wait-for-it.sh /usr/bin/wait-for-it
+COPY --chown=www:www wait-for-it.sh /usr/bin/wait-for-it
 RUN chmod +x /usr/bin/wait-for-it
 
 ENV APP_ENV=dev
 ENV APP_SECRET=0842e8ce715642505ca2400e4308f5e4
 
-RUN touch .env && composer install
-
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Change current user to www
-USER www
+RUN touch .env
+RUN composer install
 
 EXPOSE 9000
-
 CMD php-fpm
 
 
