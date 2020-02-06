@@ -11,8 +11,8 @@ env:
   DOCKER_REGISTY_LOGIN: ${{ secrets.DOCKER_REGISTY_LOGIN }}
   DOCKER_REGISTY_PASS: ${{ secrets.DOCKER_REGISTY_PASS }}
   AUTH_BASIC: ${{ secrets.AUTH_BASIC }}
-  CONTAINER_TEST: "nikon5070/symfony"
-  CONTAINER_PROD: "nikon5070/symfony:latest"
+  CONTAINER_TEST: "registry.d.ratio.bz/symfony"
+  CONTAINER_PROD: "registry.d.ratio.bz/symfony:latest"
 
   DATABASE_USER: ${{ secrets.DATABASE_USER }}
   DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
