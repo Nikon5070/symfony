@@ -63,7 +63,7 @@ jobs:
               --rm \
               --network php-test-db \
               -e DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:3306/${DATABASE_NAME} \
-              $CONTAINER_TEST:${GITHUB_HEAD_REF} \
+              $CONTAINER_PROD \
               php bin/phpunit
 
   prod-deploy:

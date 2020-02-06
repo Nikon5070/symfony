@@ -34,8 +34,8 @@ services:
       - traefik-net
     deploy:
       labels:
-        traefik.backend: "master.symfony"
-        traefik.frontend.rule: "Host:master.symfony.d.ratio.bz"
+        traefik.backend: "symfony"
+        traefik.frontend.rule: "Host:symfony.d.ratio.bz"
         traefik.docker.network: "traefik-net"
         traefik.port: "80"
       replicas: 4
