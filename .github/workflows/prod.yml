@@ -6,6 +6,8 @@ on:
       - master
 env:
   NAME_PROJECT: ${{ secrets.NAME_PROJECT }}
+
+  DOCKER_REGISTY_HOST: ${{ secrets.DOCKER_REGISTY_HOST }}
   DOCKER_REGISTY_LOGIN: ${{ secrets.DOCKER_REGISTY_LOGIN }}
   DOCKER_REGISTY_PASS: ${{ secrets.DOCKER_REGISTY_PASS }}
   AUTH_BASIC: ${{ secrets.AUTH_BASIC }}
@@ -26,7 +28,7 @@ jobs:
           echo $AUTH_BASIC > ./devops/nginx/.htpasswd
       - name: docker login
         run: |
-          echo $DOCKER_REGISTY_PASS | docker login -u $DOCKER_REGISTY_LOGIN --password-stdin
+          echo $DOCKER_REGISTY_PASS | docker login $DOCKER_REGISTY_HOST -u $DOCKER_REGISTY_LOGIN --password-stdin
       - name: build docker image
         run: |
           docker build -t $CONTAINER_TEST:master -t $CONTAINER_PROD -f ./devops/Dockerfile .
